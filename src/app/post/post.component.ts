@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { PostService } from '../services/post.service';
 import { AppError } from '../common/app-error';
+import { BadInputError } from '../common/bad-input-error';
 export interface PostShape{
   id?: number,
   userId?: number,
@@ -32,11 +33,20 @@ export class PostComponent  implements OnInit {
       title: input.value
    };
   this.service.createPost(post)
-    .subscribe((response: PostShape) => {
-      post['id'] = response.id;
-      this.posts.splice(0,0,post);
-      console.log(JSON.stringify(post));
-    });
+    .subscribe(
+      (response: PostShape) => {
+        post['id'] = response.id;
+        this.posts.splice(0,0,post);
+        console.log(JSON.stringify(post));
+      },
+      (error: AppError) => {
+        if(error instanceof BadInputError){
+          console.error('log from post component bad input: ' + error);
+        } else {
+          console.error('other error');
+        }
+      }
+    );
  }
  update(post: PostShape){
    post.userId = 1000;
