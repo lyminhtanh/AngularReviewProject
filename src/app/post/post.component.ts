@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { PostService } from '../services/post.service';
+import { AppError } from '../common/app-error';
 export interface PostShape{
   id?: number,
   userId?: number,
@@ -51,16 +52,9 @@ export class PostComponent  implements OnInit {
      this.badRequest = false;
      let index = this.posts.indexOf(post);
      this.posts.splice(index, 1);
-   }, (error: HttpErrorResponse) => {
-     if(error.error instanceof ErrorEvent){
-       console.error(' A client-side or network error occurred. Handle it accordingly, error message: '+error.error.message);
-     } else {
-        // The backend returned an unsuccessful response code.
-        // The response body may contain clues as to what went wrong,
-        this.badRequest = true;
-        console.error(`status: ${error.status} and body was: ${error.message}`)
-     }
-
+   }, (error: AppError) => {
+     
+    console.error('log from post component: '+error);
 
    })
  }
