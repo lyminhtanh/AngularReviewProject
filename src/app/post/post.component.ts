@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { PostService } from '../services/post.service';
-
-
 export interface PostShape{
   id?: number,
   userId?: number,
@@ -17,7 +15,7 @@ export interface PostShape{
 
 export class PostComponent  implements OnInit {
   posts;
-
+  badRequest: boolean = false;
   constructor(private service: PostService) { 
     
   }
@@ -26,7 +24,7 @@ export class PostComponent  implements OnInit {
    this.service.getPosts()
     .subscribe((response) => {
       this.posts = response;
-    })
+    }, error => alert("unexpected error"))
   }
  createPost(input: HTMLInputElement){
    let post:PostShape = {
@@ -47,10 +45,23 @@ export class PostComponent  implements OnInit {
  }
 
  deletePost(post: PostShape) {
+   post.id=3000;
    this.service.deletePost(post)
    .subscribe((response) => {
+     this.badRequest = false;
      let index = this.posts.indexOf(post);
      this.posts.splice(index, 1);
+   }, (error: HttpErrorResponse) => {
+     if(error.error instanceof ErrorEvent){
+       console.error(' A client-side or network error occurred. Handle it accordingly, error message: '+error.error.message);
+     } else {
+        // The backend returned an unsuccessful response code.
+        // The response body may contain clues as to what went wrong,
+        this.badRequest = true;
+        console.error(`status: ${error.status} and body was: ${error.message}`)
+     }
+
+
    })
  }
 
