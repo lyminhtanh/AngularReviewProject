@@ -14,19 +14,21 @@ export interface PostShape{
   styleUrls: ['./post.component.css']
 })
 
-export class PostComponent {
+export class PostComponent  implements OnInit {
   posts;
   private newLocal = 'http://jsonplaceholder.typicode.com/posts';
 
   constructor(private http: HttpClient) { 
-    http.get(this.newLocal)
+    
+  }
+  
+  ngOnInit(){
+    this.http.get(this.newLocal)
         .subscribe((response) =>{
           this.posts = response;
          // console.log(response);
         } )
   }
-  
-
  createPost(input: HTMLInputElement){
    let post:PostShape = {
       title: input.value
