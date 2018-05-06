@@ -10,7 +10,7 @@ import { BadInputError } from '../common/bad-input-error';
 
 @Injectable()
 export class PostService {
-  private url = 'http://jjsonplaceholder.typicode.com/posts';
+  private url = 'http://jsonplaceholder.typicode.com/posts';
 
   constructor(private http: HttpClient) { }
   

@@ -26,7 +26,7 @@ export class PostComponent  implements OnInit {
    this.service.getPosts()
     .subscribe((response) => {
       this.posts = response;
-    }, error => alert("unexpected error"))
+    });
   }
  createPost(input: HTMLInputElement){
    let post:PostShape = {
@@ -43,7 +43,9 @@ export class PostComponent  implements OnInit {
         if(error instanceof BadInputError){
           console.error('log from post component bad input: ' + error);
         } else {
-          console.error('other error');
+          
+          //rethrow to global handler
+          throw error;
         }
       }
     );
@@ -62,11 +64,15 @@ export class PostComponent  implements OnInit {
      this.badRequest = false;
      let index = this.posts.indexOf(post);
      this.posts.splice(index, 1);
-   }, (error: AppError) => {
+   }
+  //  , 
+  //  (error: AppError) => {
      
-    console.error('log from post component: '+error);
+  //   console.error('log from post component: '+error);
 
-   })
+  //  }
+  // comment out to use global error handler
+  )
  }
 
  
