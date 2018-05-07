@@ -15,32 +15,34 @@ export class PostService {
   constructor(private http: HttpClient) { }
   
   getPosts(){
-    return  this.http.get(this.url);
+    return  this.http.get(this.url)
+    .catch(this.handleError);
   }
 
   createPost(post){
     return this.http.post(this.url, this.toJsonString(post))
-      .catch((error: HttpErrorResponse) => {
-        if(error.status === 400){
-          return Observable.throw(new BadInputError(error));
-        }
-        return Observable.throw(new AppError(error));
-
-      })
+      .catch(this.handleError);
   }
 
   updatePost(post){
-    return this.http.put(this.url + '/'+post.id, post );
+    return this.http.put(this.url + '/'+post.id, post )
+      .catch(this.handleError);
   }
 
   deletePost(post){
     return this.http.delete(this.url+ '/'+post.id, post.id)
-      .catch((error) => {
-        return Observable.throw(new AppError(error));
-      });
+      .catch(this.handleError);
   }
   private toJsonString(post): string {
     console.log(JSON.stringify(post));
     return JSON.stringify(post);
+  }
+  
+  private handleError(error: HttpErrorResponse){
+      if(error.status === 400){
+        return Observable.throw(new BadInputError(error));
+      }
+      return Observable.throw(new AppError(error));
+
   }
 }

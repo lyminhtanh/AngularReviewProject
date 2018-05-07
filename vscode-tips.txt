@@ -1,3 +1,4 @@
 Fn + F12 = go to definition
 Fn + Shift + F12 = find all reference
 ---
+Shift + Cmd + o : search method in current class
