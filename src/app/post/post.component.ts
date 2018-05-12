@@ -32,11 +32,11 @@ export class PostComponent  implements OnInit {
    let post:PostShape = {
       title: input.value
    };
+   this.posts.splice(0,0,post);
   this.service.createPost(post)
     .subscribe(
       (response: PostShape) => {
         post['id'] = response.id;
-        this.posts.splice(0,0,post);
         console.log(JSON.stringify(post));
       },
       (error: AppError) => {
@@ -58,20 +58,17 @@ export class PostComponent  implements OnInit {
  }
 
  deletePost(post: PostShape) {
-   post.id=3000;
+  // post.id=3000;
+  let index = this.posts.indexOf(post);
+  this.posts.splice(index, 1);
    this.service.deletePost(post)
    .subscribe((response) => {
      this.badRequest = false;
-     let index = this.posts.indexOf(post);
-     this.posts.splice(index, 1);
+   },
+   (error) => {
+     //roll back when delete failed
+     this.posts.splice(index, 0, post);
    }
-  //  , 
-  //  (error: AppError) => {
-     
-  //   console.error('log from post component: '+error);
-
-  //  }
-  // comment out to use global error handler
   )
  }
 

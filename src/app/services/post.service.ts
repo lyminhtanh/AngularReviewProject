@@ -30,8 +30,10 @@ export class PostService {
   }
 
   deletePost(post){
-    return this.http.delete(this.url+ '/'+post.id, post.id)
-      .catch(this.handleError);
+    //simulate delete error
+    return Observable.throw(new AppError(null));
+    // return this.http.delete(this.url+ '///'+post.id, post.id)
+    //   .catch(this.handleError);
   }
   private toJsonString(post): string {
     console.log(JSON.stringify(post));
