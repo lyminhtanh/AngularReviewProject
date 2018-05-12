@@ -8,6 +8,7 @@ import { PostService } from './services/post.service';
 import { AppErrorHandler } from './handler/app.error.handler';
 import { MediaObjectComponent } from './media-object/media-object.component';
 import { MediaObjectsComponent } from './media-objects/media-objects.component';
+import { MediaObjectServiceImpl } from './services/media-object.service';
 
 
 @NgModule({
@@ -22,9 +23,10 @@ import { MediaObjectsComponent } from './media-objects/media-objects.component';
     HttpClientModule
   ],
   providers: [
-    PostService
+    PostService,
     //,
     //{provide: ErrorHandler, useClass: AppErrorHandler}
+    //{provide: MediaObjectService, useClass: MediaObjectServiceImpl}
   ],
   bootstrap: [AppComponent]
 })

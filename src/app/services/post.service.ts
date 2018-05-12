@@ -5,17 +5,20 @@ import { Observable } from 'rxjs/Observable'
 
 import { AppError } from '../common/app-error';
 import 'rxjs/add/observable/throw'
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { BadInputError } from '../common/bad-input-error';
 
 @Injectable()
 export class PostService {
-  private url = 'http://jsonplaceholder.typicode.com/posts';
+  private url = 'https://api.github.com/users/mosh-hamedani/followers'
+  //'http://jsonplaceholder.typicode.com/posts';
 
   constructor(private http: HttpClient) { }
   
   getPosts(){
     return  this.http.get(this.url)
+  //  .map((list:Object[]) => list.pop())
     .catch(this.handleError);
   }
 
