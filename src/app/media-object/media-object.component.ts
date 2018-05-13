@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MediaObjectComponent implements OnInit {
 
-  @Input('media-object') mediaObject:MediaObject;
+  @Input('media-object') mediaObject:any;
   
   constructor() { }
 

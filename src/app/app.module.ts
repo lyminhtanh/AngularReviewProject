@@ -8,7 +8,7 @@ import { PostService } from './services/post.service';
 import { AppErrorHandler } from './handler/app.error.handler';
 import { MediaObjectComponent } from './media-object/media-object.component';
 import { MediaObjectsComponent } from './media-objects/media-objects.component';
-import { MediaObjectServiceImpl } from './services/media-object.service';
+import { MediaObjectImplService } from './services/media-object-impl.service';
 
 
 @NgModule({
@@ -24,6 +24,7 @@ import { MediaObjectServiceImpl } from './services/media-object.service';
   ],
   providers: [
     PostService,
+    MediaObjectImplService
     //,
     //{provide: ErrorHandler, useClass: AppErrorHandler}
     //{provide: MediaObjectService, useClass: MediaObjectServiceImpl}

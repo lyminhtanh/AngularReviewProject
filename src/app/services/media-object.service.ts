@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable'
+
 
 @Injectable()
-export class MediaObjectServiceImpl implements MediaObjectService {
-  constructor() { }
-  getMediaObjects(){
-    
+export class MediaObjectService {
+
+  constructor(private url:string, private service: HttpClient) { }
+  public getMediaObjects(){
+   return this.service.get(this.url);
   }
 }

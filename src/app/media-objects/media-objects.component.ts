@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../services/post.service';
+import { MediaObjectImplService } from '../services/media-object-impl.service';
 
 @Component({
   selector: 'app-media-objects',
@@ -8,22 +9,11 @@ import { PostService } from '../services/post.service';
 })
 export class MediaObjectsComponent implements OnInit {
 
-  items: MediaObject[] = [];
-  constructor(private service: PostService) { 
-    service.getPosts().subscribe(
-      (response:Object[]) => {
-        response.forEach((element) => {
-          let item: MediaObject = {
-            header: element['login'],
-            body: element['html_url'],
-            imgSrc: element['avatar_url']
-          }
-          setTimeout(() => {
-            console.log('item:'+item['header']);
-            this.items.splice(0, 0, item);
-          }, 2000);
-          
-        })
+  items: any[] = [];
+  constructor(private service: MediaObjectImplService) { 
+    service.getMediaObjects().subscribe(
+      (response:any[]) => {
+        this.items = response;
       }
     )
   }
