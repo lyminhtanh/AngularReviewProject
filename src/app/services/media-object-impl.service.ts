@@ -8,7 +8,7 @@ export class MediaObjectImplService  extends MediaObjectService{
   constructor(service: HttpClient) {
     super('https://api.github.com/users/mosh-hamedani/followers', service);
    }
-  getMediaObjects(){
-    return super.getMediaObjects();
-  }
+  // getMediaObjects(){
+  //   return super.getMediaObjects();
+  // }
 }

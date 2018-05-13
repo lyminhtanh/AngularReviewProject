@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable'
 export class MediaObjectService {
 
   constructor(private url:string, private service: HttpClient) { }
-  public getMediaObjects(){
+  getMediaObjects(){
    return this.service.get(this.url);
   }
 }
