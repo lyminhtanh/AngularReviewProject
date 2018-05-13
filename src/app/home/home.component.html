@@ -1,0 +1,6 @@
+<h4>Archives</h4>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let archive of archives">
+    <a [routerLink]="['archive',archive.year, archive.month]">{{archive.name}}</a>
+  </li>
+</ul>
